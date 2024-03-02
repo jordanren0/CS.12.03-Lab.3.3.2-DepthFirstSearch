@@ -34,7 +34,6 @@ public class DepthFirstSearch {
                 {2},
                 {1,6}
         };
-
         int[] path_graph_1 = depthFirstSearch(graph1);
         int[] path_graph_2 = depthFirstSearch(graph2);
 
@@ -45,39 +44,52 @@ public class DepthFirstSearch {
 
     public static int[] depthFirstSearch(int[][] graph) {
 
+        int startNode = 0;
         // Create a stack.
+        Stack<Integer> stack = new Stack<>();
 
         // Create an array called visited. This will keep track of which nodes we have visited.
+        boolean[] visited = new boolean[graph.length];
 
         // Create an array called path. This will keep track of the order of nodes that we visit.
+        int[] path = new int[graph.length];
 
         // Create an index for the path array.
+        int pathIndex = 0;
 
         // Push our starting node to the stack. We can begin our traversal from any valid node. Let's begin our traversal at node 0.
+        stack.push(startNode);
 
         // Record the starting node as visited.
+        visited[startNode] = true;
 
         // While our stack is not empty i.e. while we still have nodes to explore ...
-
+        while(!stack.isEmpty()) {
             // Pop the node that we are currently visiting from the stack.
+            int currentNode = stack.pop();
 
             // Add the node that we are currently visiting to the path.
+            path[pathIndex++] = currentNode;
 
             // Obtain an array of all neighbouring/adjacent nodes of the node that we are currently visiting.
+            int[] neighbors = graph[currentNode];
 
             // For each neighbouring/adjacent node ...
+            for(int neighbor : neighbors) {
 
                 // If the neighbouring/adjacent node has not been visited ...
+                if(!visited[neighbor]) {
 
                     // Record the neighbouring/adjacent node as visited.
+                    visited[neighbor] = true;
 
                     // Push the neighbouring/adjacent node onto the stack.
-
-
-
-
+                    stack.push(neighbor);
+                }
+            }
+        }
         // Return the path.
-        return null;
+        return path;
 
     }
 
